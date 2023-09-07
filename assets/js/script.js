@@ -3,7 +3,7 @@ console.log('we');
 /* 
 
 Consegna:
-Riprendiamo il live coding visto in classe un pó di tempo fá sul carosello di immagini e rifacciamolo :gatto_che_urla:, questa volta usando gli oggetti.
+Riprendiamo il live coding visto in classe un pó di tempo fá sul carosello di immagini e rifacciamolo, questa volta usando gli oggetti.
 Potete prendere come riferimento il codice scritto insieme nel live, che troverete direttamente nella mia repository di github a questo link: [https://github.com/fabiopacifici/104_js/tree/main/live_slider]
 Modifichiamo il codice dell'esercizio per renderlo funzionante con un array di oggetti al posto di un array di stringhe.
 
@@ -18,3 +18,97 @@ Bonus 2:
 E se volessi un bottone per invertire la "direzione" del carosello?
 
 */
+
+
+
+const slides = [
+    {
+        title:'Spider-Man Miles Morales',
+        img:'./assets/img/01.webp',
+    },
+    {
+        title:'Ratchet & Clank: Rift Apart',
+        img:'./assets/img/02.webp', 
+    },
+    {
+        title:'Fortnite',
+        img:'./assets/img/03.webp',
+    },
+    {
+        title:'Stray',
+        img:'./assets/img/04.webp',
+    },
+    {
+        title:'Marvel Avengers',
+        img:'./assets/img/05.webp',
+    }
+]
+
+  
+let activeSlide = 0;
+
+const sliderImagesEl = document.querySelector('.slider .images')
+const prevEl = document.querySelector('.prev')
+const nextEl = document.querySelector('.next')
+
+
+slides.forEach((slide, i) => {
+    const slideMarkup = document.createElement('img')
+    slideMarkup.src = `${slide.img}`
+    slide.i = i
+    //console.log(slide.i);
+    if (slide.i == activeSlide) {
+        slideMarkup.classList.add('active')
+    }
+    
+    sliderImagesEl.append(slideMarkup)
+});
+
+
+const slidesImages = document.querySelectorAll('.slider .images > img')
+
+// intercept click on the next icon 
+nextEl.addEventListener('click', function(){
+    console.log('cliccato su next');
+  
+    removeActive()
+  
+    if (activeSlide === slidesImages.length - 1) {
+      activeSlide = 0
+      // activeSlide = 5
+    } else {
+      // increment the activeSlide of 1
+      activeSlide++
+    }
+
+    addActive() 
+  
+})
+
+prevEl.addEventListener('click', function () {
+    console.log('cliccato su prev');
+  
+    removeActive()
+  
+    if (activeSlide === 0) {
+      activeSlide = slidesImages.length - 1
+      // activeSlide = 5
+    } else {
+        // decrement the activeSlide of 1
+        activeSlide--
+    }
+    
+    addActive() 
+
+})
+
+
+function removeActive() {
+    const currentSlide = slidesImages[activeSlide]
+    currentSlide.classList.remove('active')
+}
+
+function addActive() {
+       const nextSlide = slidesImages[activeSlide]
+       nextSlide.classList.add('active')
+}
