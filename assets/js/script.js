@@ -47,6 +47,7 @@ const slides = [
   
 let activeSlide = 0;
 
+const thumbsElement = document.querySelector('.thumbnails')
 const sliderImagesEl = document.querySelector('.slider .images')
 const prevEl = document.querySelector('.prev')
 const nextEl = document.querySelector('.next')
@@ -62,6 +63,19 @@ slides.forEach((slide, i) => {
     }
     
     sliderImagesEl.append(slideMarkup)
+});
+
+slides.forEach((thumb, i) => {
+    const thumbMarkup = document.createElement('img')
+    thumbMarkup.classList.add('thumb')
+    thumbMarkup.src = `${thumb.img}`
+    thumb.i = i
+    
+    if (thumb.i == activeSlide) {
+        thumbMarkup.classList.add('active')
+    }
+    
+    thumbsElement.append(thumbMarkup)
 });
 
 
@@ -85,9 +99,10 @@ nextEl.addEventListener('click', function(){
   
 })
 
+
 prevEl.addEventListener('click', function () {
     console.log('cliccato su prev');
-  
+    
     removeActive()
   
     if (activeSlide === 0) {
@@ -97,18 +112,31 @@ prevEl.addEventListener('click', function () {
         // decrement the activeSlide of 1
         activeSlide--
     }
-    
+
     addActive() 
+    
+
 
 })
 
 
+
 function removeActive() {
+
+    const currentThumb = document.querySelector('.thumbnails > img.active')
+    currentThumb.classList.remove('active')
+
     const currentSlide = slidesImages[activeSlide]
     currentSlide.classList.remove('active')
 }
 
 function addActive() {
-       const nextSlide = slidesImages[activeSlide]
-       nextSlide.classList.add('active')
+
+    const nextThumb = document.querySelectorAll('.thumb')[activeSlide]
+    nextThumb.classList.add('active')
+
+    const nextSlide = slidesImages[activeSlide]
+    nextSlide.classList.add('active')
 }
+
+

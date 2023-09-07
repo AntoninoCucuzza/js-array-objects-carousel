@@ -113,3 +113,12 @@ img
 	height: calc(100% / 5);
 	object-fit: cover;
 }
+
+.mt-3{
+    margin-top: 3rem;
+}
+
+.btn{
+    height: 50px;
+    width: 75px;
+}
